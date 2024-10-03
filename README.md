@@ -1,144 +1,58 @@
-##Documentação Básica##
+# Notes Fullstack
 
+**Projeto Pessoal de Estudo Fullstack**
 
-[Estrutura do Projeto]
+Bem-vindo ao **Notes Fullstack**! Este é um web-app de notas (stickers) que visa abordar as problemáticas mais comuns da atualidade, incluindo:
 
-/src
-  /controllers          # Controladores para gerenciar a lógica das rotas
-  /middlewares          # Middlewares para autenticação e outras funções
-  /services             # Lógica de negócios, comunicação com o Prisma
-  /routes               # Definições de rotas da API
-  /models               # Configurações do Prisma Client
-  /utils                # Funções utilitárias (hashing, tokenização)
-app.js                  # Ponto de entrada do aplicativo
-package.json            # Configurações e dependências do projeto
+- **Usabilidade e Design:** Interfaces intuitivas e atraentes.
+- **Responsividade:** Funcionamento em diferentes dispositivos e tamanhos de tela.
+- **Segurança:** Implementações contra injeções SQL e bots, além de proteção de sessão de usuário.
+- **Gerenciamento de Estado:** Uso de refresh tokens para garantir uma experiência contínua.
+- **Persistência de Dados:** Estrutura sólida para armazenamento de informações.
+- **Arquitetura de Microsserviços:** Implementação de um API Gateway para direcionar microsserviços.
+- **Princípios de Clean Architecture e SOLID:** Estruturação de pastas e arquivos com base em responsabilidades.
+- **Performance e Testes:** Foco em otimização e validação do código.
+- **Configuração de Variáveis de Ambiente e Deploy:** Preparação para ambientes de produção.
 
+## Tecnologias Utilizadas
 
-Descrição das Funcionalidades
-Autenticação (Auth)
+Este projeto é construído com as seguintes tecnologias:
 
-Token: Gera e verifica tokens JWT.
-Middleware: Verifica se o usuário está autenticado.
-Usuários (User)
+- **Backend:**
+  - Fastify
+  - Bcrypt
+  - JSON Web Token (JWT)
+  - Javascript
+  - Prisma (ORM) com PostgreSQL hospedado no NeonDB
 
-Registro: Permite que novos usuários se registrem e geram um JWT.
-Login: Autentica usuários e retorna um token.
-Notas (Note)
+- **Frontend:**
+  - Next.js
+  - TypeScript
+  - React
+  - Tailwind CSS
+  - Zod para validação de schemas
+  - Hook Form e Resolvers para gerenciamento de formulários
 
-CRUD: Permite criar, listar, atualizar e deletar notas.
-Remover Grupo: Remove a associação de uma nota a um grupo.
-Grupos (Group)
+- **Ferramentas de Desenvolvimento:**
+  - ESLint para linting de código
+  - Dotenv para gerenciamento de variáveis de ambiente
 
-CRUD: Permite criar, listar e deletar grupos.
+## Documentação da API
 
-Em alguns lugares, você está tratando erros com um console.error, mas não está retornando informações detalhadas no erro (como no removeGroupFromNote). Para melhorar a experiência do desenvolvedor, você pode adicionar mais contexto ao erro.
-Exemplo: console.error('Failed to remove group from note:', error);
-Validação de Entrada:
+A API está documentada com [Swagger](#LINK), facilitando a visualização e o teste das rotas disponíveis.
 
-Você não está realizando validação de entrada para as requisições. Considere usar bibliotecas como Joi ou Yup para validar as informações recebidas no corpo das requisições, especialmente para dados sensíveis como senhas e e-mails.
-Uso de parseInt:
+## Imagens
 
-Quando você usa parseInt, pode ser útil verificar se o valor fornecido é realmente um número válido. Por exemplo, você pode fazer uma verificação antes de chamar parseInt para evitar erros.
-Segurança:
+Aqui estão algumas imagens do projeto:
 
-No hash.js, o número de iterações do salt é fixo em 10. Considere configurar isso como uma variável de ambiente para permitir ajustes futuros.
-Autenticação:
+![Imagem 1](link-para-imagem1)
+![Imagem 2](link-para-imagem2)
+![Imagem 3](link-para-imagem3)
 
-No middleware auth, você poderia adicionar um verificador para garantir que o token JWT não esteja expirado antes de usá-lo. Isso ajudaria a evitar erros em chamadas subsequentes.
-Documentação Adicional:
+---
 
-Considere usar ferramentas como Swagger ou Postman para gerar documentação da API. Isso torna mais fácil para outros desenvolvedores entenderem como interagir com sua API.
-Testes:
+Este é um projeto pequeno, mas as documentações são simples e essenciais para garantir uma compreensão clara e efetiva de todas as funcionalidades implementadas.
 
-Não há testes automatizados no seu projeto. Considere adicionar testes unitários e de integração usando bibliotecas como Jest ou Mocha. Isso ajudará a garantir que seu código funcione conforme esperado.
+## Contribuições
 
-
-
-
-Exemplos de Testes com Postman ou REST Client
-Aqui estão exemplos de testes que você pode usar no Postman ou no REST Client do VSCode.
-
-1. Registrar Usuário
-http
-Copiar código
-POST http://localhost:3000/register
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "password123",
-  "name": "John Doe"
-}
-2. Login de Usuário
-http
-Copiar código
-POST http://localhost:3000/login
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "password123"
-}
-3. Criar Nota
-http
-Copiar código
-POST http://localhost:3000/notes
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "title": "Nota Exemplo",
-  "body": "Conteúdo da nota",
-  "groupId": 1
-}
-4. Listar Notas
-http
-Copiar código
-GET http://localhost:3000/notes?search=Exemplo
-Authorization: Bearer <token>
-5. Atualizar Nota
-http
-Copiar código
-PUT http://localhost:3000/notes/1
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "title": "Nota Atualizada",
-  "body": "Novo conteúdo da nota",
-  "groupId": 1
-}
-6. Deletar Nota
-http
-Copiar código
-DELETE http://localhost:3000/notes/1
-Authorization: Bearer <token>
-7. Remover Grupo de uma Nota
-http
-Copiar código
-PATCH http://localhost:3000/notes/1/remove-group
-Authorization: Bearer <token>
-8. Criar Grupo
-http
-Copiar código
-POST http://localhost:3000/groups
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "name": "Grupo Exemplo"
-}
-9. Listar Grupos
-http
-Copiar código
-GET http://localhost:3000/groups?search=Exemplo
-Authorization: Bearer <token>
-10. Deletar Grupo
-http
-Copiar código
-DELETE http://localhost:3000/groups/1
-Authorization: Bearer <token>
-Observações
-Substitua <token> pelo token JWT que você obtém após o login.
-Certifique-se de que o servidor está em execução (node app.js) antes de fazer as requisições.
-Para testar a autenticação, primeiro você precisa registrar um usuário e, em seguida, fazer o login para obter o token.
+Se você deseja contribuir para este projeto, fique à vontade para enviar suas sugestões e melhorias!
