@@ -10,7 +10,7 @@ export default async function auth(request, reply, next) {
 
   try {
     const decoded = verifyToken(token)
-    request.user = decoded // Armazena o usuário autenticado
+    request.user = decoded
     next() 
   } catch (error) {
     return reply.status(401).send({ message: 'Invalid Token' })
