@@ -8,7 +8,7 @@ const server = fastify()
 const port = 10000
 
 server.register(cors, {
-  origin: 'https://notes-fullstack-frontend-one.vercel.app',
+  origin: 'https://notes-fullstack-frontend-one.vercel.app/',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 });
