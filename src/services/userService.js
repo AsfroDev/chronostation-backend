@@ -47,7 +47,7 @@ export async function loginUser(email, password) {
   }
 
   // Criar token JWT
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '5m' })
+  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '3h' })
 
   return { user, token }
 }
