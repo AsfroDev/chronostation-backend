@@ -3,7 +3,6 @@ import cors from '@fastify/cors'
 import userRoutes from './src/routes/userRoutes.js'
 import productRoutes from './src/routes/productRoutes.js'
 import groupRoutes from './src/routes/groupRoutes.js'
-import bulkCreateProducts from './src/services/bulkService.js';
 
 const server = fastify()
 const port = 10000

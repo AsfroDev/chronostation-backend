@@ -31,6 +31,13 @@ export async function listProducts(req, reply) {
           },
         ],
       },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
     })
 
     return reply.status(200).send(products)
@@ -107,7 +114,9 @@ export async function addCategoryToProduct(req, reply) {
     return reply.status(200).send(product)
   } catch (error) {
     console.error(error)
-    return reply.status(500).send({ error: 'Falha em adicionar categoria ao produto' })
+    return reply
+      .status(500)
+      .send({ error: 'Falha em adicionar categoria ao produto' })
   }
 }
 
@@ -124,6 +133,8 @@ export async function removeCategoryFromProduct(req, reply) {
     return reply.status(200).send(product)
   } catch (error) {
     console.error(error)
-    return reply.status(500).send({ error: 'Falha em remover a categoria do produto' })
+    return reply
+      .status(500)
+      .send({ error: 'Falha em remover a categoria do produto' })
   }
 }
